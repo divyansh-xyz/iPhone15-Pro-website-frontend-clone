@@ -3,6 +3,8 @@ import { hightlightsSlides } from "../constants";
 import gsap from "gsap";
 import { pauseImg, playImg, replayImg, whiteImg } from "../utils";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 const VideoCarousel = () => {
   const videoRef = useRef([]);
   const videoSpanRef = useRef([]);
@@ -72,7 +74,7 @@ const VideoCarousel = () => {
                   : window.innerWidth < 1200
                   ? "10vw"
                   : "4vw",
-            });
+            }); 
 
             gsap.to(span[videoId], {
               width: `${currentProgress}%`,
@@ -109,6 +111,7 @@ const VideoCarousel = () => {
       }
     }
   }, [videoId, startPlay]);
+
   const handleProcess = (type, i) => {
     switch (type) {
       case "video-end":
@@ -151,8 +154,8 @@ const VideoCarousel = () => {
     <>
       <div className="flex items-center">
         {hightlightsSlides.map((list, i) => (
-          <div key={list.id} id="slider" className="sm:pr-20 pr-10">
-            <div className="video-carousel_container">
+          <div key={list.id} className="sm:pr-20 pr-10">
+            <div className="video-carousel_container" id="slider">
               <div className="w-full h-full flex-center rounded-3xl overflow-hidden bg-black">
                 <video
                   id="video"
@@ -166,13 +169,6 @@ const VideoCarousel = () => {
                     i !== 3
                       ? handleProcess("video-end", i)
                       : handleProcess("video-last");
-                  }}
-                  onPlay={() => {
-                    setVideo((prevVideo) => ({
-                      ...prevVideo,
-                      isPlaying: true,
-                      startPlay: true,
-                    }));
                   }}
                   onLoadedMetadata={(e) => handleLoadedMetaData(i, e)}
                 >
