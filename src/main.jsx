@@ -1,10 +1,19 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import React from "react";
+import "react-dom/client";
 
-createRoot(document.getElementById('root')).render(
+import * as Sentry from "@sentry/react";
+
+Sentry.init({
+  dsn: "https://e51c373ef4da801db29bfb084779ff52@o4510272450723840.ingest.de.sentry.io/4510272470909008",
+  sendDefaultPii: true,
+});
+
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <App />
-  </StrictMode>,
-)
+  </StrictMode>
+);
